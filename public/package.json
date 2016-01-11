@@ -1,0 +1,9 @@
+{
+  "name": "SmarterTourismClient",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "pixi.js": "^3.0.9",
+    "socket.io-client": "^1.4.4"
+  }
+}

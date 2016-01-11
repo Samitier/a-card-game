@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>An online card game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body onload="init()">
+
+    <!-- Print console.log in screen !-->
+    <div id="log"></div>
+    <script>
+        var old = console.log;
+        var logger = document.getElementById('log');
+        var log = function (message) {
+            console.log(message);
+            if (typeof message == 'object') {
+                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+            } else {
+                logger.innerHTML += message + '<br />';
+            }
+        }
+    </script>
+    <!-- End of logger !-->
+
+    <script src="/node_modules/socket.io-client/socket.io.js"></script>
+    <script src="/js/main.js"></script>
+</body>
