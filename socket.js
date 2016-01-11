@@ -34,12 +34,24 @@ function init(server) {
             io.to(rooms[rooms.length-1].id).emit("starting card", rooms[rooms.length-1].deck.shift());
 
             //we set the actual turn to an arbitrary player to start the match
-            io.to(rooms[rooms.length-1].users[utils.randomInt(0,1)]).emit('your turn');
+            rooms[rooms.length-1].turn = utils.randomInt(0,1);
+            io.to(rooms[rooms.length-1].users[rooms[rooms.length-1].turn]).emit('your turn');
 
             isRoomEmpty = true;
         }
+        client.on('make movement', function(movement) {
+            /*
+            if(client.id == rooms[movement.room].users[movement.room].turn) {
+                console.log(movement);
+                console.log(movement.rooms);
+                console.log(client.rooms);
+                rooms[movement.room].turn++;
+                rooms[movement.room].turn%=2;
+                // broadcast game state
+            }*/
+        });
 
-        io.on('disconnect', function(client) {
+        client.on('disconnect', function() {
             client.broadcast.emit("player disconnected", client.id);
         });
     });

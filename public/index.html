@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <title>An online card game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
-<body onload="init()">
+<body>
 
     <!-- Print console.log in screen !-->
     <div id="log"></div>
@@ -22,7 +23,9 @@
         }
     </script>
     <!-- End of logger !-->
+    <input id="input-action" type="text">
 
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/socket.io-client/socket.io.js"></script>
     <script src="/js/main.js"></script>
 </body>
