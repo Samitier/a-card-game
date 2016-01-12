@@ -5,21 +5,44 @@ $(function() {
     log("Waiting for connection");
     log("");
 
-    socket.on("connected to room", function(msg){
-        room = msg;
-        log("Connected to the room #" + msg);
+    socket.on("match start", function(msg){
+        room = msg.roomId;
+        log("Connected to the room #" + room);
         log("");
-    });
-
-    socket.on("your cards", function(msg){
         log("This are your starting cards:");
-        msg.forEach(function(m){log(m);});
+        msg.match.player.hand.forEach(function(m){log(m);});
+        log("");
+        log("The match starts with this card:");
+        log(msg.match.tableCards[0]);
+        log("");
+        if(msg.match.turn) log('You start playing.');
+        else log("Waiting for the player to play a card");
         log("");
     });
 
-    socket.on("starting card", function(msg){
-        log("The match starts with this card:");
-        log(msg);
+    socket.on("match updated", function(msg){
+        if(msg.turn) log("Your rival played:");
+        else log("You played:");
+        log(" the card " + msg.lastMovement.card.title + " in the position " + msg.lastMovement.position);
+        if(msg.lastMovement.correct) log("And it was correct!");
+        else log("And it was wrong!");
+
+        log("");
+
+        log("This are your cards now:");
+        msg.player.hand.forEach(function(m){log(m);});
+        log("");
+
+        log("And the rival has: " + msg.rivals[0].hand + " cards in his hand.");
+        log("");
+
+
+        log("Now there are this cards on the table:");
+        msg.tableCards.forEach(function(m){log(m);});
+        log("");
+
+        if(msg.turn) log("Your turn!");
+        else log("Waiting for the other players to play a card");
         log("");
     });
 
@@ -28,29 +51,25 @@ $(function() {
         log("");
     });
 
-    socket.on("your turn",function(msg){
-        log("You start playing");
-        log("");
-    });
-
     function makeMovement(msg) {
-        log(msg);
-        log("");
-        msg.room = room;
-        socket.emit('make movement', msg);
+        send('make movement', msg);
     }
 
 
-
-
-
-
+    ///// wrapper for socket.emit ///////
+    var send = function(message, data) {
+        var obj = {
+            room:room,
+            data: data
+        }
+        socket.emit(message, obj);
+    }
 
     ///// recieving user input /////////
     var sendMessage = function () {
         var message = $('#input-action').val();
         message = cleanInput(message);
-        $('#input-action').val('');
+        $('#input-action').val('{"card":card,"position":pos}');
         if (message) {
             try {
                 message = JSON.parse(message);

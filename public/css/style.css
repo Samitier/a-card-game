@@ -1,11 +1,15 @@
 body {
   margin: 0px;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #input-action {
-    position:absolute;
+    position:fixed;
     bottom:0px;
     width:100%;
-    padding: 0.5em;
+    padding: 0.2em;
+}
+
+#log {
+    margin-bottom:2em;
 }
