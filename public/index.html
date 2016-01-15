@@ -4,28 +4,47 @@
     <meta charset="utf-8">
     <title>An online card game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="/node_modules/purecss/build/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="/node_modules/purecss/build/grids-responsive-min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
+    <div class="custom-menu-wrapper">
+        <div class="pure-menu custom-menu custom-menu-top">
+            <a href="#" class="pure-menu-heading custom-menu-brand">A card Game</a>
+            <a href="#" class="custom-menu-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
+        </div>
+        <div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="tuckedMenu">
+            <div class="custom-menu-screen"></div>
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="/" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="/howto.html" class="pure-menu-link">How to play</a></li>
+                <li class="pure-menu-item"><a href="https://github.com/Samitier/a-card-game" class="pure-menu-link">GitHub</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <h3 class="main-title" id="loading-text">
+                Waiting a player to connect
+            </h3>
+            <h3 class="main-title" id="flash-message">
+            </h3>
+        </div>
+    </div>
+    <div class="pure-g" id="yourhand"></div>
 
     <!-- Print console.log in screen !-->
-    <div id="log"></div>
+    <div id="log" class="hidden"></div>
     <script>
-        var old = console.log;
-        var logger = document.getElementById('log');
-        var log = function (message) {
-            console.log(message);
-            if (typeof message == 'object') {
-                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
-            } else {
-                logger.innerHTML += message + '<br />';
-            }
-        }
+
     </script>
     <!-- End of logger !-->
-    <input id="input-action" value='{"card":card,"position":pos}' type="text">
+    <!--<input id="input-action" value='{"card":card,"position":pos}' type="text">!-->
 
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/socket.io-client/socket.io.js"></script>
+    <script src="/js/utils.js"></script>
     <script src="/js/main.js"></script>
 </body>

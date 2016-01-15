@@ -1,16 +1,16 @@
 $(function() {
     var socket = io.connect(window.location.origin);
-    var room;
-
-    log("Waiting for connection");
-    log("");
+    var room, graphics = GraphicUtils();
 
     socket.on("match start", function(msg){
         room = msg.roomId;
-        log("Connected to the room #" + room);
-        log("");
-        log("This are your starting cards:");
+
+        graphics.hideLoadingMessage();
+        graphics.showFlashMessage("Connected to the room #" + room);
+
         msg.match.player.hand.forEach(function(m){log(m);});
+        graphics.showHand(msg.match.player.hand);
+
         log("");
         log("The match starts with this card:");
         log(msg.match.tableCards[0]);
