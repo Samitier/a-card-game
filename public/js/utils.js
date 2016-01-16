@@ -1,9 +1,19 @@
 var GraphicUtils = function() {
-    var cardtemplate=   "<div class='pure-u-1-8 card'>"+
-                            "<img src='http://placehold.it/150x150' class='pure-img card-thumbnail'>"+
-                            "<div class='card-content'>" +
-                                "The card title" +
-                            "</div></div>";
+    var yourcardTemplate =   function(cardname) {
+        return "<div class='pure-u-sm-1-8 pure-u-xl-1-12 pure card card-yourcard'" +
+            "ondragstart='drag(event)' draggable='true'>"+
+            "<img src='http://placehold.it/150x150' class='pure-img card-thumbnail'>"+
+            "<div class='card-content'>" + cardname + "</div></div>";
+    };
+    var tablecardTemplate =   function(cardname, cardvalue) {
+        return "<div class='pure-u-sm-1-8 pure-u-xl-1-12 pure card card-tablecard'>"+
+        "<img src='http://placehold.it/150x150' class='pure-img card-thumbnail'>"+
+        "<div class='card-content'>" + cardname + "<br><br>" + cardvalue + "</div></div>";
+    };
+
+    var handx = 0, tablex = 0;
+    var cardSeparation = 8;
+
     return {
         hideLoadingMessage: function () {
             $('#loading-text').hide();
@@ -14,9 +24,18 @@ var GraphicUtils = function() {
         },
         showHand: function (cards) {
             cards.forEach(function (card) {
-                $('#yourhand').append(cardtemplate);
+                $('#yourhand').append(yourcardTemplate(card.title));
+                $('#yourhand').children().last().css("left", handx +'%');
+                handx +=cardSeparation;
             });
-        }
+        },
+        showTable: function(cards) {
+            cards.forEach(function (card) {
+                $('#table').append(tablecardTemplate(card.title, card.value));
+                $('#table').children().last().css("left", tablex + '%');
+                tablex += cardSeparation;
+            });
+        },
     };
 };
 

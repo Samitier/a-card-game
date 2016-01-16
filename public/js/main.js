@@ -14,6 +14,8 @@ $(function() {
         log("");
         log("The match starts with this card:");
         log(msg.match.tableCards[0]);
+        graphics.showTable(msg.match.tableCards);
+
         log("");
         if(msg.match.turn) log('You start playing.');
         else log("Waiting for the player to play a card");

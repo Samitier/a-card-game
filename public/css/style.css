@@ -1,3 +1,4 @@
+/* Debug fields */
 #input-action {
     position:fixed;
     bottom:0px;
@@ -10,9 +11,10 @@
     animate:all 0.5s;
 }
 
+/* Main */
 body {
     background-color: rgba(75, 193, 110, 0.23);
-    overflow-x:hidden;
+    overflow:hidden;
 }
 
 .small-box{
@@ -29,19 +31,42 @@ body {
     text-transform: uppercase;
 }
 
+/* Cards */
+@keyframes init-card {
+    from {bottom:-11em;}
+    to {bottom: 0em;}
+}
+
 .card {
     -webkit-box-shadow: 2px -2px 7px 1px rgba(0,0,0,0.55);
     -moz-box-shadow: 2px -2px 7px 1px rgba(0,0,0,0.55);
     box-shadow: 2px -2px 7px 1px rgba(0,0,0,0.55);
     padding:0.6em;
     margin:0.5em;
+    height:14em;
     background-color:white;
     border-radius:6px;
     margin-bottom:0em;
+    text-align:center;
+    position:absolute;
+}
+
+.card-tablecard {
+}
+
+.card-yourcard {
+    height: 11em;
     border-bottom-right-radius: 0em;
     border-bottom-left-radius: 0em;
-    height: 11em;
-    text-align:center;
+    animation:init-card 1s forwards;
+    transition: height 0.5s, transform 0.5s, z-index 0s 0.5s;
+}
+
+.card-yourcard:hover {
+    height:14em;
+    z-index:5;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
 }
 
 .card-thumbnail {
@@ -56,9 +81,17 @@ body {
     color: #544D4D;
 }
 
+#table {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    margin-left:7em;
+}
+
 #yourhand {
     position:absolute;
     bottom:0px;
+    margin-left:4em;
     width:100%;
 }
 
