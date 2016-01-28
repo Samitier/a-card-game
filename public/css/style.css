@@ -54,19 +54,31 @@ body {
 .card-tablecard {
 }
 
+.card-interaction {
+    opacity:0;
+}
+
+.card-interaction-hover {
+    opacity:0.35;
+    z-index: 5;
+}
+
 .card-yourcard {
-    height: 11em;
-    border-bottom-right-radius: 0em;
-    border-bottom-left-radius: 0em;
+    cursor:pointer;
+    transform:translate(0em,2.5em);
     animation:init-card 1s forwards;
-    transition: height 0.5s, transform 0.5s, z-index 0s 0.5s;
+    transition: height 0.5s, transform 0.5s 0.1s, z-index 0s 0.1s;
 }
 
 .card-yourcard:hover {
-    height:14em;
+    transform:translate(-1.5em,0em);
     z-index:5;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
+}
+
+.card-active {
+    transform:translate(-1.5em,0em);
+    background-color: #eaeded;
+    z-index:4;
 }
 
 .card-thumbnail {
@@ -91,7 +103,7 @@ body {
 #yourhand {
     position:absolute;
     bottom:0px;
-    margin-left:4em;
+    margin-left:5em;
     width:100%;
 }
 
