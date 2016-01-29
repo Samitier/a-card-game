@@ -36,6 +36,8 @@ module.exports = {
         $('#flash-message').text(msg).fadeIn();
     },
     showHand: function (cards) {
+        $('#yourhand').empty();
+        handx=0;
         cards.forEach(function (card, index) {
             var card = yourcardTemplate(card.title, index);
             $(card).css("left", handx + '%').click(userInteraction.selectCard(this));
@@ -44,6 +46,8 @@ module.exports = {
         });
     },
     showTable: function (cards) {
+        $('#table').empty();
+        tablex=0;
         cards.forEach(function (card, index) {
             var interaction = tableCardInteraction(index), tableCard = tablecardTemplate(card.title, card.value);
             $(interaction).css("left", tablex - cardSeparation / 2 + '%');
@@ -54,4 +58,9 @@ module.exports = {
         $('#table').append(tableCardInteraction(cards.length))
             .children().last().css("left", tablex - cardSeparation / 2 + '%');
     },
+    setTurn: function (turn) {
+        if(turn) log("Your turn!");
+        else log("Waiting for the other players to play a card");
+        userInteraction.setTurn(turn);
+    }
 };

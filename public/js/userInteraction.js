@@ -1,10 +1,11 @@
-
+var messages = require("./userMessages");
 var selectedCard = -1;
+var yourturn = false;
 
 module.exports = {
         selectCard: function (elem) {
             var cardId = $(elem).data("card-id");
-            if(selectedCard == cardId || selectedCard == -1) {
+            if((selectedCard == cardId || selectedCard == -1) && yourturn) {
                 $(elem).toggleClass('card-active');
                 if (selectedCard == cardId) selectedCard = -1;
                 else {
@@ -12,11 +13,14 @@ module.exports = {
                 }
             }
             $(".card-interaction").hover(function() {
-                if(selectedCard!=-1) $(this).toggleClass("card-interaction-hover");
+                if(selectedCard!=-1 && yourturn) $(this).toggleClass("card-interaction-hover");
             });
         },
         selectPosition: function(elem) {
-            var cardIndex = $(elem).data("card-index");
-            console.log(cardIndex);
+            var selectedPosition = $(elem).data("card-index");
+            if(selectedCard!=-1 && yourturn) messages.sendMovement(selectedCard, selectedPosition);
+        },
+        setTurn: function(turn){
+            yourturn = turn;
         }
 };
